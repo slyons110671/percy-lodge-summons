@@ -1,0 +1,193 @@
+{
+  "season": "2025-2026",
+  "officers": [
+    {
+      "display": "W. Bro. P.L. STALLARD*",
+      "role": "Master"
+    },
+    {
+      "display": "W. Bro. S.M. LYONS* PProvGStwd",
+      "role": "IPM"
+    },
+    {
+      "display": "Bro. N. PACEY*",
+      "role": "SW"
+    },
+    {
+      "display": "Bro. T.G. McNAMARA*",
+      "role": "JW"
+    },
+    {
+      "display": "W. Bro. P. J. RICE* PProvAGStB",
+      "role": "Chaplain"
+    },
+    {
+      "display": "Bro. P. J. BROOKS",
+      "role": "Treasurer"
+    },
+    {
+      "display": "W. Bro. K. ATKINSON* PProvJGW",
+      "role": "Secretary"
+    },
+    {
+      "display": "W. Bro. P.A. YOUNGER* ProvJGW",
+      "role": "DC"
+    },
+    {
+      "display": "W. Bro. P.L. STALLARD*",
+      "role": "Memb. Off."
+    },
+    {
+      "display": "W. Bro. P.A. YOUNGER* ProvJGW",
+      "role": "Mentor & R.A. Rep."
+    },
+    {
+      "display": "W. Bro. K. ATKINSON* PProvJGW",
+      "role": "Almoner"
+    },
+    {
+      "display": "Bro. J. P. RUSHBROOK",
+      "role": "Charity Steward"
+    },
+    {
+      "display": "W. Bro. L.K. SLUCOCK*",
+      "role": "SD"
+    },
+    {
+      "display": "Bro. A. MEMAJ*",
+      "role": "JD"
+    },
+    {
+      "display": "W. Bro. G.J. YOUNG* PProvAGDC",
+      "role": "Asst. D.C."
+    },
+    {
+      "display": "W. Bro. A. BAXENDALE",
+      "role": "Organist"
+    },
+    {
+      "display": "W. Bro. S. M. LYONS* PProvGStwd",
+      "role": "Asst. Sec."
+    },
+    {
+      "display": "Bro. P. A. STEELE*",
+      "role": "IG"
+    },
+    {
+      "display": "Bro. Dr. S. WINFIELD*",
+      "role": "Tyler"
+    }
+  ],
+  "stewards_text": "Stewards: Bros. A. FENWICK, B.W. SMITH, K.J. STORES,\r\nD. LOUGHTON*, K.K. DOSHI*,",
+  "committees": {
+    "finance_gp": "The Master, Wardens, Past Masters, Treasurer, Secretary",
+    "charities": "The Master, Wardens, Secretary, Treasurer, Almoner & Charity Steward"
+  },
+  "charities_rep": {
+    "description": "Representative on the Masonic Charities and Votes Committee of Prov. Grand Lodge & on the Committee of the Richard Henry Holmes Masonic Benevolent Fund & representative for the Northumberland Masonic Charity Association.",
+    "name": "J. P. Rushbrook"
+  },
+  "responsible_go": {
+    "rank": "W.Bro.",
+    "name": "Nicholas Deakin PAGStB",
+    "phone": "07787 586306",
+    "email": "nicholas.deakin@pgln.org.uk"
+  },
+  "contacts": {
+    "wm": {
+      "label": "W.M.",
+      "name": "Philip Lloyd Stallard",
+      "address": "26 Killin Close, Chapel Park, Newcastle NE51 1UQ",
+      "phone": "07834 733 839",
+      "email": "stollylateo@yahoo.co.uk"
+    },
+    "treasurer": {
+      "label": "Treasurer",
+      "name": "P.J. Brooks",
+      "address": "1 East View, Seghill, NE23 7SP",
+      "phone": "07796 158 934",
+      "email": "pjb1971@gmail.com"
+    },
+    "secretary": {
+      "label": "Secretary & Data Controller",
+      "name": "Ken. Atkinson",
+      "address": "7 Taynton Grove, Seghill, NE23 7TX",
+      "phone": "07721 382260",
+      "email": "atkinson1950@gmail.com"
+    }
+  },
+  "subscribing_past_masters": [
+    {
+      "name": "K. ATKINSON",
+      "honours": "PProvJGW",
+      "years": "2001/022007/08"
+    },
+    {
+      "name": "L.B. ANNIS",
+      "honours": "PProvJGW",
+      "years": "2010/11"
+    },
+    {
+      "name": "P.J RICE",
+      "honours": "PProvGStB",
+      "years": "2011/12"
+    },
+    {
+      "name": "P.A. YOUNGER",
+      "honours": "PProvJGW",
+      "years": "2015,16, 21,22"
+    },
+    {
+      "name": "G.J. YOUNG",
+      "honours": "PProvAGDC",
+      "years": "2018,19 & 20"
+    },
+    {
+      "name": "S.M. LYONS",
+      "honours": "PProvGStwd",
+      "years": "2024/25"
+    }
+  ],
+  "honorary_members": [
+    {
+      "name": "B.W. DENTON",
+      "honours": "PSGD, PAProvGM",
+      "wm_years": "WM2009/10"
+    }
+  ],
+  "meal_price": 25,
+  "bank_sort_code": "20-40-09",
+  "bank_account": "AC40579939",
+  "meal_contact_email": "peter4523@gmail.com",
+  "meal_whatsapp_note": "Please book or record apologies via WhatsApp link",
+  "meeting_dates": [
+    {
+      "date": "9th February",
+      "type": "Regular"
+    },
+    {
+      "date": "9th March",
+      "type": "Regular"
+    },
+    {
+      "date": "13th April",
+      "type": "Regular"
+    },
+    {
+      "date": "14th September",
+      "type": "Regular"
+    },
+    {
+      "date": "12th October",
+      "type": "Installation"
+    },
+    {
+      "date": "9th November",
+      "type": "Regular"
+    },
+    {
+      "date": "14th December 2026",
+      "type": "Friends & Family"
+    }
+  ]
+}
