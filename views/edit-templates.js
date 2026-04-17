@@ -269,8 +269,8 @@ function editTemplatesHTML(templates, saved) {
         }
       });
       el.addEventListener('drop', e => {
+        if (itemDragSrc === null) return;  // let it bubble up for category drops
         e.preventDefault(); e.stopPropagation();
-        if (itemDragSrc === null) return;
         const srcCi = itemDragSrc.ci, srcIi = itemDragSrc.ii;
         const tgtCi = +el.dataset.ci,  tgtIi = +el.dataset.ii;
 
