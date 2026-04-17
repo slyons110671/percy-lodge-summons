@@ -1,18 +1,31 @@
 'use strict';
 const { shell } = require('./shell');
 
-function editAnnualHTML(a, saved) {
-  const officers = a.officers || [];
-  const pms      = a.subscribing_past_masters || [];
-  const hms      = a.honorary_members || [];
-  const dates    = a.meeting_dates || [];
-  const contacts = a.contacts || {};
+function editAnnualHTML(a, saved, stat) {
+  const officers     = a.officers || [];
+  const officerRoles = (stat && stat.officer_roles) || [];
+  const stewards  = a.stewards || [];
+  const pms       = a.subscribing_past_masters || [];
+  const hms       = a.honorary_members || [];
+  const dates     = a.meeting_dates || [];
+  const contacts  = a.contacts || {};
   const wm  = contacts.wm  || {};
   const tr  = contacts.treasurer || {};
   const sec = contacts.secretary || {};
   const rgo = a.responsible_go || {};
   const crep = a.charities_rep || {};
   const comm = a.committees || {};
+
+  function roleSelect(current) {
+    // All standard roles as options; if current value isn't in the list, add it at top
+    const inList = officerRoles.includes(current);
+    const extra = (current && !inList)
+      ? `<option value="${e(current)}" selected>${e(current)}</option>` : '';
+    const opts = officerRoles.map(r =>
+      `<option value="${e(r)}"${r === current ? ' selected' : ''}>${e(r)}</option>`
+    ).join('');
+    return `<select name="officer_role[]">${extra}${opts}<option value="">— custom —</option></select>`;
+  }
 
   const officerRows = (officers.length ? officers : [{ display: '', role: '' }])
     .map((o, i) => `
@@ -25,8 +38,7 @@ function editAnnualHTML(a, saved) {
         </div>
         <div class="form-group">
           <label>Role</label>
-          <input type="text" name="officer_role[]" value="${e(o.role)}"
-            placeholder="e.g. Master">
+          ${roleSelect(o.role)}
         </div>
       </div>
       <button type="button" class="btn btn-sm btn-danger dyn-remove"
@@ -46,8 +58,8 @@ function editAnnualHTML(a, saved) {
           <input type="text" name="pm_honours[]" value="${e(pm.honours)}" placeholder="e.g. PProvJGW">
         </div>
         <div class="form-group">
-          <label>Year(s) as WM</label>
-          <input type="text" name="pm_years[]" value="${e(pm.years)}" placeholder="e.g. 2001/02">
+          <label>Year(s) as WM <small>(one per line, e.g. 2001-2002)</small></label>
+          <textarea name="pm_years[]" rows="3" placeholder="2001-2002&#10;2007-2008">${e(pm.years)}</textarea>
         </div>
       </div>
       <button type="button" class="btn btn-sm btn-danger dyn-remove"
@@ -134,10 +146,18 @@ function editAnnualHTML(a, saved) {
       <div class="card">
         <div class="card-header"><h2>Stewards</h2></div>
         <div class="form-grid">
-          <div class="form-group form-full">
-            <label>Stewards text (appears below officers list)</label>
-            <textarea name="stewards_text" rows="2">${e(a.stewards_text || '')}</textarea>
+          <div class="form-group">
+            <label>Number of Stewards</label>
+            <input type="number" id="stewards-count" min="0" max="20"
+              value="${stewards.length}" onchange="updateStewardFields(+this.value)">
           </div>
+        </div>
+        <div id="steward-fields" style="padding: 0 20px 16px;">
+          ${stewards.map((name, i) => `
+          <div class="steward-field" style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+            <label style="white-space:nowrap;min-width:80px;font-size:12px;font-weight:600;">Steward ${i + 1}</label>
+            <input type="text" name="steward_name[]" value="${e(name)}" placeholder="e.g. Bro. A. FENWICK" style="flex:1;">
+          </div>`).join('')}
         </div>
       </div>
 
@@ -221,8 +241,11 @@ function editAnnualHTML(a, saved) {
         <div class="form-grid">
           <div class="form-group"><label>Secretary Label</label>
             <input type="text" name="sec_label" value="${e(sec.label || 'Secretary & Data Controller')}"></div>
-          <div class="form-group"><label>Secretary Name</label>
-            <input type="text" name="sec_name" value="${e(sec.name || '')}"></div>
+          <div class="form-group" style="display:flex;align-items:center;">
+            <div style="background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:8px 12px;font-size:12px;color:var(--gray-600);width:100%;margin-top:18px;">
+              Name is taken from the <strong>Officers list</strong> — update it there.
+            </div>
+          </div>
           <div class="form-group form-full"><label>Secretary Address</label>
             <input type="text" name="sec_address" value="${e(sec.address || '')}"></div>
           <div class="form-group"><label>Secretary Phone</label>
@@ -309,10 +332,37 @@ function editAnnualHTML(a, saved) {
     let pmIdx  = ${pms.length || 1};
     let hmIdx  = ${hms.length || 1};
     let mdIdx  = ${dates.length || 1};
+    const ROLES = ${JSON.stringify(officerRoles)};
+
+    function buildRoleSelect() {
+      const opts = ROLES.map(r => \`<option value="\${r}">\${r}</option>\`).join('');
+      return \`<select name="officer_role[]">\${opts}<option value="">— custom —</option></select>\`;
+    }
 
     function removeRow(id) {
       const el = document.getElementById(id);
       if (el) el.remove();
+    }
+
+    function updateStewardFields(count) {
+      const container = document.getElementById('steward-fields');
+      const current = container.querySelectorAll('.steward-field').length;
+      for (let i = current; i < count; i++) {
+        const div = document.createElement('div');
+        div.className = 'steward-field';
+        div.style.cssText = 'display:flex;align-items:center;gap:10px;margin-bottom:8px;';
+        div.innerHTML = \`<label style="white-space:nowrap;min-width:80px;font-size:12px;font-weight:600;">Steward \${i + 1}</label>
+          <input type="text" name="steward_name[]" placeholder="e.g. Bro. A. FENWICK" style="flex:1;">\`;
+        container.appendChild(div);
+      }
+      const fields = container.querySelectorAll('.steward-field');
+      for (let i = current - 1; i >= count; i--) {
+        if (fields[i]) fields[i].remove();
+      }
+      // Renumber labels
+      container.querySelectorAll('.steward-field label').forEach((lbl, i) => {
+        lbl.textContent = 'Steward ' + (i + 1);
+      });
     }
 
     function addOfficer() {
@@ -325,7 +375,7 @@ function editAnnualHTML(a, saved) {
           </div>
           <div class="form-group">
             <label>Role</label>
-            <input type="text" name="officer_role[]" placeholder="e.g. Master">
+            \${buildRoleSelect()}
           </div>
         </div>
         <button type="button" class="btn btn-sm btn-danger dyn-remove"
@@ -343,8 +393,8 @@ function editAnnualHTML(a, saved) {
             <input type="text" name="pm_name[]" placeholder="e.g. K. ATKINSON"></div>
           <div class="form-group"><label>Honours</label>
             <input type="text" name="pm_honours[]" placeholder="e.g. PProvJGW"></div>
-          <div class="form-group"><label>Year(s) as WM</label>
-            <input type="text" name="pm_years[]" placeholder="e.g. 2001/02"></div>
+          <div class="form-group"><label>Year(s) as WM <small>(one per line)</small></label>
+            <textarea name="pm_years[]" rows="3" placeholder="2001-2002&#10;2007-2008"></textarea></div>
         </div>
         <button type="button" class="btn btn-sm btn-danger dyn-remove"
           onclick="removeRow('pm-\${pmIdx}')">Remove</button>

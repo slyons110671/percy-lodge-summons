@@ -7,7 +7,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const DATA_DIR = path.join(__dirname, 'data');
-const MEETINGS_DIR = path.join(DATA_DIR, 'meetings');
+const MEETINGS_DIR  = path.join(DATA_DIR, 'meetings');
+const TEMPLATES_FILE = path.join(DATA_DIR, 'business_templates.json');
 
 // ── Middleware ──────────────────────────────────────────────────────────────
 app.use(express.urlencoded({ extended: true }));
@@ -33,6 +34,12 @@ function loadMeeting(id) {
 function saveMeeting(id, data) {
   fs.writeFileSync(path.join(MEETINGS_DIR, `${id}.json`), JSON.stringify(data, null, 2));
 }
+function loadTemplates() {
+  try { return JSON.parse(fs.readFileSync(TEMPLATES_FILE, 'utf8')); } catch { return []; }
+}
+function saveTemplates(data) {
+  fs.writeFileSync(TEMPLATES_FILE, JSON.stringify(data, null, 2));
+}
 function deleteMeeting(id) {
   fs.unlinkSync(path.join(MEETINGS_DIR, `${id}.json`));
 }
@@ -47,8 +54,9 @@ function listMeetings() {
 // ── Views ───────────────────────────────────────────────────────────────────
 const { dashboardHTML } = require('./views/dashboard');
 const { editMeetingHTML } = require('./views/edit-meeting');
-const { editAnnualHTML } = require('./views/edit-annual');
-const { editStaticHTML } = require('./views/edit-static');
+const { editAnnualHTML }     = require('./views/edit-annual');
+const { editStaticHTML }     = require('./views/edit-static');
+const { editTemplatesHTML }  = require('./views/edit-templates');
 const { outerHTML } = require('./views/summons-outer');
 const { innerHTMLPage } = require('./views/summons-inner');
 
@@ -59,7 +67,7 @@ app.get('/', (req, res) => {
 
 // ── New meeting ──────────────────────────────────────────────────────────────
 app.get('/meeting/new', (req, res) => {
-  res.send(editMeetingHTML(null, loadAnnual()));
+  res.send(editMeetingHTML(null, loadAnnual(), loadTemplates()));
 });
 
 app.post('/meeting', (req, res) => {
@@ -72,7 +80,7 @@ app.post('/meeting', (req, res) => {
 // ── Edit meeting ─────────────────────────────────────────────────────────────
 app.get('/meeting/:id/edit', (req, res) => {
   try {
-    res.send(editMeetingHTML(loadMeeting(req.params.id), loadAnnual()));
+    res.send(editMeetingHTML(loadMeeting(req.params.id), loadAnnual(), loadTemplates()));
   } catch {
     res.status(404).send('Meeting not found');
   }
@@ -161,9 +169,20 @@ app.get('/meeting/:id/pdf', async (req, res) => {
   }
 });
 
+// ── Business templates ────────────────────────────────────────────────────────
+app.get('/settings/templates', (req, res) => {
+  res.send(editTemplatesHTML(loadTemplates(), req.query.saved === '1'));
+});
+
+app.post('/settings/templates', (req, res) => {
+  if (!Array.isArray(req.body)) return res.status(400).send('Invalid data');
+  saveTemplates(req.body);
+  res.json({ ok: true });
+});
+
 // ── Annual settings ───────────────────────────────────────────────────────────
 app.get('/settings/annual', (req, res) => {
-  res.send(editAnnualHTML(loadAnnual(), req.query.saved === '1'));
+  res.send(editAnnualHTML(loadAnnual(), req.query.saved === '1', loadStatic()));
 });
 
 app.post('/settings/annual', (req, res) => {
@@ -190,6 +209,7 @@ function parseMeetingForm(body) {
     meeting_day: (body.meeting_day || '').trim(),
     meeting_type: (body.meeting_type || 'Regular Meeting').trim(),
     letter_date: (body.letter_date || '').trim(),
+    coach_date: (body.coach_date || '').trim(),
     business_items: headings
       .map((h, i) => ({ heading: h.trim(), body: (bodies[i] || '').trim() }))
       .filter(item => item.heading || item.body)
@@ -223,7 +243,7 @@ function parseAnnualForm(body) {
   return {
     season: (body.season || '').trim(),
     officers,
-    stewards_text: (body.stewards_text || '').trim(),
+    stewards: [].concat(body.steward_name || []).map(n => n.trim()).filter(Boolean),
     committees: {
       finance_gp: (body.finance_gp || '').trim(),
       charities: (body.charities || '').trim()
@@ -272,7 +292,8 @@ function parseStaticForm(body) {
       dress: (body.dress || '').trim()
     },
     ancient_charge: (body.ancient_charge || '').trim(),
-    rmbi_note: (body.rmbi_note || '').trim()
+    rmbi_note: (body.rmbi_note || '').trim(),
+    officer_roles: (body.officer_roles || '').split('\n').map(l => l.trim()).filter(Boolean)
   };
 }
 

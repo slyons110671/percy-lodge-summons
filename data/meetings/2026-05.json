@@ -1,0 +1,30 @@
+{
+  "meeting_date": "11th May 2026",
+  "meeting_day": "Monday",
+  "meeting_type": "Regular Meeting",
+  "letter_date": "30th April 2026",
+  "coach_date": "1st May 2026",
+  "business_items": [
+    {
+      "heading": "",
+      "body": "To approve the minutes of the previous Regular Meeting."
+    },
+    {
+      "heading": "To Pass",
+      "body": "Kester Store - Initialed dd/mm/yyyy"
+    },
+    {
+      "heading": "To Propose",
+      "body": "joe blogg"
+    },
+    {
+      "heading": "To Ballot",
+      "body": "for exclusion — a member with unpaid subscriptions. To be named at the meeting."
+    },
+    {
+      "heading": "To Appoint",
+      "body": "the Inner Guard and Stewards."
+    }
+  ],
+  "id": "2026-05"
+}

@@ -115,6 +115,16 @@ function editStaticHTML(s, saved) {
         </div>
       </div>
 
+      <div class="card">
+        <div class="card-header"><h2>Officer Roles</h2></div>
+        <div class="form-grid">
+          <div class="form-group form-full">
+            <label>Standard Roles <small>(one per line — used as suggestions when editing officers)</small></label>
+            <textarea name="officer_roles" rows="14" placeholder="Master&#10;IPM&#10;SW&#10;JW&#10;...">${e((s.officer_roles || []).join('\n'))}</textarea>
+          </div>
+        </div>
+      </div>
+
       <div class="form-actions">
         <a class="btn btn-ghost" href="/">Cancel</a>
         <button type="submit" class="btn btn-primary">Save Lodge Settings</button>

@@ -59,6 +59,13 @@ function dashboardHTML(meetings, annual) {
           <p>Province, Ancient Charge, Warrant Dates, Venue, Dress</p>
         </div>
       </a>
+      <a class="settings-card" href="/settings/templates">
+        <div class="settings-card-icon">📝</div>
+        <div>
+          <h3>Business Templates</h3>
+          <p>Pre-made agenda items — Ceremony, Ballots, Routine, Annual</p>
+        </div>
+      </a>
     </div>
   `);
 }

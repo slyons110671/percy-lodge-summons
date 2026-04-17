@@ -26,7 +26,7 @@
       "role": "Treasurer"
     },
     {
-      "display": "W. Bro. K. ATKINSON* PProvJGW",
+      "display": "Bro. S. Whitmore*",
       "role": "Secretary"
     },
     {
@@ -78,7 +78,7 @@
       "role": "Tyler"
     }
   ],
-  "stewards_text": "Stewards: Bros. A. FENWICK, B.W. SMITH, K.J. STORES,\r\nD. LOUGHTON*, K.K. DOSHI*,",
+  "stewards": ["Bro. A. FENWICK", "Bro. B.W. SMITH", "Bro. K.J. STORES", "Bro. D. LOUGHTON*", "Bro. K.K. DOSHI*"],
   "committees": {
     "finance_gp": "The Master, Wardens, Past Masters, Treasurer, Secretary",
     "charities": "The Master, Wardens, Secretary, Treasurer, Almoner & Charity Steward"
@@ -120,32 +120,32 @@
     {
       "name": "K. ATKINSON",
       "honours": "PProvJGW",
-      "years": "2001/022007/08"
+      "years": "2001-2002\r\n2007-2008"
     },
     {
       "name": "L.B. ANNIS",
       "honours": "PProvJGW",
-      "years": "2010/11"
+      "years": "2010-2011"
     },
     {
       "name": "P.J RICE",
       "honours": "PProvGStB",
-      "years": "2011/12"
+      "years": "2011-2012"
     },
     {
       "name": "P.A. YOUNGER",
       "honours": "PProvJGW",
-      "years": "2015,16, 21,22"
+      "years": "2015-2016\r\n2021-2022"
     },
     {
       "name": "G.J. YOUNG",
       "honours": "PProvAGDC",
-      "years": "2018,19 & 20"
+      "years": "2018-2019\r\n2019-2020"
     },
     {
       "name": "S.M. LYONS",
       "honours": "PProvGStwd",
-      "years": "2024/25"
+      "years": "2024-2025"
     }
   ],
   "honorary_members": [

@@ -22,6 +22,10 @@ function innerHTMLPage(meeting, annual, stat) {
   const wm  = (annual.contacts || {}).wm  || {};
   const sec = (annual.contacts || {}).secretary || {};
 
+  // Secretary name for signature — prefer the officers list so it stays in sync
+  const secOfficer = (annual.officers || []).find(o => o.role === 'Secretary');
+  const secSignName = secOfficer ? secOfficer.display : (sec.name ? `W. Bro. ${sec.name}` : '');
+
   const agms = (province.assistant_gms || []).map(a => `<div>${e(a)}</div>`).join('');
 
   // ── Spine: Past Masters list ──
@@ -43,7 +47,7 @@ function innerHTMLPage(meeting, annual, stat) {
   // ── Business items ──
   const businessHTML = (meeting.business_items || []).map(item => {
     const body = e(item.body).replace(/\n/g, '<br>');
-    const heading = item.heading ? `<strong>${e(item.heading)}</strong> ` : '';
+    const heading = item.heading ? `<strong>${e(item.heading)}</strong><br>` : '';
     return `<div class="biz-item">${heading}${body}</div><div class="biz-sep">--------------------</div>`;
   }).join('');
 
@@ -73,7 +77,7 @@ function innerHTMLPage(meeting, annual, stat) {
 
   /* ── Inside front ── */
   .inside-front {
-    width: 108mm; height: 210mm;
+    width: 129mm; height: 210mm;
     padding: 5mm;
     flex-shrink: 0;
   }
@@ -81,56 +85,57 @@ function innerHTMLPage(meeting, annual, stat) {
     width: 100%; height: 100%;
     border: 0.75pt solid #000;
     padding: 3mm 4mm;
-    display: flex; flex-direction: column; gap: 1.5mm;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
     overflow: hidden;
   }
 
   .province-name {
-    text-align: center; font-size: 10.5pt; font-weight: bold;
+    text-align: center; font-size: 12pt; font-weight: bold;
     text-transform: uppercase; line-height: 1.25;
   }
   .province-officers {
-    text-align: center; font-size: 7pt; line-height: 1.5;
+    text-align: center; font-size: 8pt; line-height: 1.5;
   }
   .province-officers .bold { font-weight: bold; }
 
-  .rule { border-top: 0.5pt solid #aaa; margin: 1mm 0; }
+  .rule { border-top: 0.5pt solid #aaa; }
 
   .ancient-charge {
-    font-style: italic; font-size: 6.8pt; line-height: 1.38;
-    color: #222;
+    font-style: italic; font-size: 8.5pt; line-height: 1.4;
+    color: #222; text-align: center;
   }
 
   .lodge-name {
-    text-align: center; font-size: 10pt; font-weight: bold;
+    text-align: center; font-size: 12pt; font-weight: bold;
   }
   .lodge-warrant {
-    text-align: center; font-size: 7pt; line-height: 1.4;
+    text-align: center; font-size: 8.5pt; line-height: 1.45;
   }
 
   .master-name {
-    font-weight: bold; font-style: italic; font-size: 9pt;
+    font-weight: bold; font-style: italic; font-size: 10.5pt;
     text-align: center;
   }
   .master-venue {
-    font-style: italic; font-size: 7pt; text-align: center;
+    font-style: italic; font-size: 8.5pt; text-align: center; line-height: 1.4;
   }
   .letter-date {
-    font-style: italic; font-size: 7pt; margin-top: 0.5mm;
+    font-style: italic; font-size: 8.5pt;
   }
-  .salutation { font-size: 7.5pt; margin-top: 0.5mm; }
-  .letter-body { font-size: 7.5pt; line-height: 1.4; margin-top: 0.5mm; }
+  .salutation { font-size: 9pt; }
+  .letter-body { font-size: 9pt; line-height: 1.45; }
   .by-command {
-    text-align: center; font-style: italic; font-size: 7.5pt; margin-top: 1.5mm;
+    text-align: center; font-style: italic; font-size: 9pt;
   }
   .sig-name {
-    text-align: center; font-weight: bold; font-size: 9pt;
+    text-align: center; font-weight: bold; font-size: 11pt;
   }
   .sig-title {
-    text-align: center; font-style: italic; font-size: 7.5pt;
+    text-align: center; font-style: italic; font-size: 9pt;
   }
-  .dress { font-size: 7.5pt; margin-top: 1mm; }
-  .footer-note { font-size: 6.3pt; font-style: italic; color: #444; margin-top: 1mm; line-height: 1.3; }
+  .dress { font-size: 9pt; }
+  .footer-note { font-size: 7.5pt; font-style: italic; color: #444; line-height: 1.35; }
 
   /* ── Spine ── */
   .spine {
@@ -178,6 +183,8 @@ function innerHTMLPage(meeting, annual, stat) {
   .biz-item strong { font-size: 9pt; }
   .biz-sep { text-align: center; color: #888; font-size: 6.5pt; margin-bottom: 1.5mm; }
 
+  .coach-block { text-align: center; }
+  .coach-date { font-size: 8.5pt; margin-bottom: 1.5mm; }
   .meals-block { margin-top: auto; padding-top: 2mm; }
   .meals-big {
     text-align: center; font-size: 14pt; font-weight: bold; line-height: 1.2;
@@ -239,7 +246,7 @@ function innerHTMLPage(meeting, annual, stat) {
     </div>
 
     <div class="by-command">By command of the Worshipful Master.</div>
-    <div class="sig-name">${sec.name ? `W. Bro. ${e(sec.name)}` : ''}</div>
+    <div class="sig-name">${e(secSignName)}</div>
     <div class="sig-title">Secretary.</div>
 
     <div class="dress">Dress: ${e(lodge.dress || '')}</div>
@@ -259,6 +266,12 @@ function innerHTMLPage(meeting, annual, stat) {
   <div class="ib-box">
     <div class="business-title">BUSINESS</div>
     ${businessHTML}
+
+    ${meeting.coach_date ? `
+    <div class="coach-block">
+      <div class="biz-sep">--------------------</div>
+      <div class="coach-date"><strong>Coach:</strong> ${e(meeting.coach_date)}</div>
+    </div>` : ''}
 
     <div class="meals-block">
       <div class="biz-sep">--------------------</div>

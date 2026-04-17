@@ -16,6 +16,7 @@ function shell(title, content) {
     <a href="/">Meetings</a>
     <a href="/settings/annual">Annual Settings</a>
     <a href="/settings/static">Lodge Settings</a>
+    <a href="/settings/templates">Business Templates</a>
   </div>
 </nav>
 <main class="container">
