@@ -127,10 +127,14 @@ app.get('/meeting/:id/pdf', async (req, res) => {
     const { PDFDocument } = require('pdf-lib');
     const baseUrl = `http://localhost:${PORT}`;
 
-    browser = await puppeteer.launch({
+    const launchOpts = {
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       headless: 'new'
-    });
+    };
+    if (process.env.PUPPETEER_EXECUTABLE_PATH) {
+      launchOpts.executablePath = process.env.PUPPETEER_EXECUTABLE_PATH;
+    }
+    browser = await puppeteer.launch(launchOpts);
 
     const pdfOpts = {
       format: 'A4',

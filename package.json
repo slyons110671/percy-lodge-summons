@@ -4,7 +4,7 @@
   "description": "Percy Lodge No. 1427 — Summons generator",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "bash startup.sh",
     "dev": "nodemon server.js"
   },
   "dependencies": {

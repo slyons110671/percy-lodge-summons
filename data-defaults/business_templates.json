@@ -1,0 +1,122 @@
+[
+  {
+    "category": "Minutes",
+    "items": [
+      {
+        "heading": "",
+        "body": "To receive and confirm the minutes from our last meeting"
+      }
+    ]
+  },
+  {
+    "category": "Ceremony",
+    "items": [
+      {
+        "heading": "To Initiate",
+        "body": ""
+      },
+      {
+        "heading": "To Pass",
+        "body": ""
+      },
+      {
+        "heading": "To Raise",
+        "body": ""
+      }
+    ]
+  },
+  {
+    "category": "Ballots",
+    "items": [
+      {
+        "heading": "To Ballot",
+        "body": "for inclusion of "
+      },
+      {
+        "heading": "To Ballot",
+        "body": "for exclusion — a member with unpaid subscriptions. To be named at the meeting."
+      }
+    ]
+  },
+  {
+    "category": "Candidates",
+    "items": [
+      {
+        "heading": "To Propose",
+        "body": ""
+      },
+      {
+        "heading": "To Receive Report",
+        "body": "on a candidate proposed at a previous meeting."
+      }
+    ]
+  },
+  {
+    "category": "Routine",
+    "items": [
+      {
+        "heading": "",
+        "body": "To approve the minutes of the previous Regular Meeting."
+      },
+      {
+        "heading": "Correspondence",
+        "body": ""
+      },
+      {
+        "heading": "Report of the Secretary",
+        "body": ""
+      },
+      {
+        "heading": "Report of the Treasurer",
+        "body": ""
+      },
+      {
+        "heading": "Any Other Business",
+        "body": ""
+      }
+    ]
+  },
+  {
+    "category": "Coach",
+    "items": [
+      {
+        "heading": "Coach",
+        "body": ""
+      }
+    ]
+  },
+  {
+    "category": "Collections & Charity",
+    "items": [
+      {
+        "heading": "RMBI Collection",
+        "body": ""
+      },
+      {
+        "heading": "Charity Collection",
+        "body": ""
+      }
+    ]
+  },
+  {
+    "category": "Annual",
+    "items": [
+      {
+        "heading": "Election of Officers",
+        "body": ""
+      },
+      {
+        "heading": "To Appoint",
+        "body": "the Inner Guard and Stewards."
+      },
+      {
+        "heading": "Annual Subscriptions",
+        "body": "To set the annual subscription for the ensuing year."
+      },
+      {
+        "heading": "Grand Lodge Certificates",
+        "body": ""
+      }
+    ]
+  }
+]
